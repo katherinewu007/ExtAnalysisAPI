@@ -16,6 +16,11 @@
 </p>
 <hr>
 
+## Disclaimer
+This repo has been modified from the original to suit below specific needs:
+- Incorporated permhash library to calculate permhash value
+- The response of the analysis api has been modified to just output json file of manifest value and permhash value
+- The dockerfile have been modified as well so that this code repo can be pushed to Azure as Azure Container App or Azure App Service
 
 ### With ExtAnalysis you can :
 
@@ -82,13 +87,13 @@ For proper analysis don't forget to add your virustotal api.
 
 ## How do I use it?
 Once the installation is done you can jump straight ahead and run ExtAnalysis by running the command:
- **$** `python3 extanalysis.py`
+ **$** `python3 app.py`
 It should automatically launch ExtAnalysis in a new browser window.
 
-For other options check out the help menu **$** `python3 extanalysis.py --help`
+For other options check out the help menu **$** `python3 app.py --help`
 
 ```
-usage: extanalysis.py [-h HOST] [-p PORT] [-v] [-u] [-q] [--help]
+usage: app.py [-h HOST] [-p PORT] [-v] [-u] [-q] [--help]
 
 optional arguments:
   -h HOST, --host HOST  Host to run ExtAnalysis on. Default host is 127.0.0.1
@@ -103,14 +108,19 @@ optional arguments:
 ## Docker Build
 
  ```
- $ docker build -t extanalysis .
+ $ docker build -t foo .
  ```
 
 ## Docker Usage
 
  ```
- $ docker run --rm -it -p 13337:13337 extanalysis -h 0.0.0.0
+ $ docker run -p 13337:13337 foo
  ```
+
+ After docker run successfully, to test locally via postman, first run ``` wsl hostname -I``` to fetch the IP address, then test in postman.
+
+ ## Publish As Azure Container App
+ Follow the instructions here: https://code.visualstudio.com/docs/containers/app-service
 
 
 ## Python Modules Used:

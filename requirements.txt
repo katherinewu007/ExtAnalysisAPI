@@ -3,3 +3,4 @@ python-whois
 requests
 maxminddb
 Flask-WTF
+permhash

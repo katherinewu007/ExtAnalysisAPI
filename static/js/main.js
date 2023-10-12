@@ -32,7 +32,7 @@ var elements = $('.modal-overlay, .modal');
 $('.close-modal').click(function() {
     elements.removeClass('active');
 });
-var csrftoken = $('meta[name=csrf-token]').attr('content')
+var csrftoken = "lol"
 
 document.getElementById('noscript').style.display = 'none';
 
@@ -886,7 +886,7 @@ function getCookie(cname) {
     }
 
     function update(){
-        swal('Update Extanalysis', 'Use the command "python3 extanalysis.py --update" to check for updates!', 'info')
+        swal('Update Extanalysis', 'Use the command "python3 app.py --update" to check for updates!', 'info')
     }
 
     function updateIntelExtraction(){
