@@ -40,7 +40,7 @@ def download(id, name=""):
         return save_name
     except Exception as e:
         core.updatelog("Error in downloader.py")
-        core.updatrlog(e)
+        # core.updatelog(e)
         print(e)
         return False
 
