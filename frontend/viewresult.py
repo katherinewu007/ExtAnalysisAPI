@@ -213,7 +213,18 @@ def view(analysis_id):
                     else:
                         base64_table = '<h3 class="nothing">No base64 encoded string found in any js/html/css files!</h3>'
 
-                    manifest_content = json.dumps(report_data['manifest'])
+                    # If we just want the response to return manifest.json content
+                    # manifest_content = json.dumps(report_data['manifest'])
+
+                    # We want to output manifest.json value and also permhash value
+                    manifest_content = report_data['manifest']
+                    dict_manifest_permhash = dict()
+                    # Use json.dumps to convert the json object to stirng, which will make the ingestion of manifest.json data easier into the extensiondb database (otherwise with json object, more processing is required on the go function)
+                    dict_manifest_permhash['manifest'] = json.dumps(manifest_content)
+                    permhash_value = report_data['permhash']
+                    dict_manifest_permhash['permhash'] = permhash_value
+                    # # string dump of the dict
+                    jsonString_merged = json.dumps(dict_manifest_permhash)
 
                     '''
                     Files count
@@ -225,33 +236,35 @@ def view(analysis_id):
                     other_files_count = len(report_data['files']['other'])
                     static_files_count = len(report_data['files']['static'])
 
-                    return render_template("report.html",
-                                            extension_type = extension_type, 
-                                            graph_data = graph_data, 
-                                            basic_info = basic_info_t, 
-                                            urls_table = urls_table, 
-                                            permissions_div = permissions_div, 
-                                            analysis_id=analysis_id, 
-                                            files_table=files_table, 
-                                            manifest_content=manifest_content,
-                                            domains_table = domains_table,
-                                            base64_table = base64_table,
-                                            comments_table = comments_table,
-                                            ips_table = ips_table,
-                                            btc_table = btc_table,
-                                            mails_table = mails_table,
-                                            extjs_table = extjs_table,
-                                            urls_count = urls_count,
-                                            extjs_count = extjs_count,
-                                            permissions_count = permissions_count,
-                                            unique_domains = unique_domains,
-                                            js_files_count = js_files_count,
-                                            css_files_count = css_files_count,
-                                            html_files_count = html_files_count,
-                                            json_files_count = json_files_count,
-                                            other_files_count = other_files_count,
-                                            static_files_count = static_files_count
-                                        )
+                    # return render_template("report.html"
+                    #                        ,
+                    #                         extension_type = extension_type, 
+                    #                         graph_data = graph_data, 
+                    #                         basic_info = basic_info_t, 
+                    #                         urls_table = urls_table, 
+                    #                         permissions_div = permissions_div, 
+                    #                         analysis_id=analysis_id, 
+                    #                         files_table=files_table, 
+                    #                         manifest_content=manifest_content,
+                    #                         domains_table = domains_table,
+                    #                         base64_table = base64_table,
+                    #                         comments_table = comments_table,
+                    #                         ips_table = ips_table,
+                    #                         btc_table = btc_table,
+                    #                         mails_table = mails_table,
+                    #                         extjs_table = extjs_table,
+                    #                         urls_count = urls_count,
+                    #                         extjs_count = extjs_count,
+                    #                         permissions_count = permissions_count,
+                    #                         unique_domains = unique_domains,
+                    #                         js_files_count = js_files_count,
+                    #                         css_files_count = css_files_count,
+                    #                         html_files_count = html_files_count,
+                    #                         json_files_count = json_files_count,
+                    #                         other_files_count = other_files_count,
+                    #                         static_files_count = static_files_count
+                    #                     )
+                    return jsonString_merged
                 
                 
                 else:

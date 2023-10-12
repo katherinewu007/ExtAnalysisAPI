@@ -31,6 +31,7 @@ import socket
 import core.virustotal as virustotal
 import core.intel as intel
 import core.ip2country as ip2country
+from permhash import functions as permhash
 
 def sort_files(extension_dir):
     try:
@@ -162,6 +163,8 @@ def analyze(ext_name, ext_type='local'):
     try:
         core.updatelog('Reading manifest.json')
         manifest_file = helper.fixpath(extract_dir + '/manifest.json')
+        # Added permhash calculation here:
+        permhash_ph = permhash.permhash_crx_manifest(manifest_file)
         manifest_load = open(manifest_file, 'r')
         manifest_content = manifest_load.read()
         manifest_content = json.loads(manifest_content)
@@ -170,6 +173,8 @@ def analyze(ext_name, ext_type='local'):
             return('error: Something went wrong while parsing manifest.json... analysis stopped')
         core.report['crx'] = ext_path
         core.report['extracted'] = extract_dir
+        # Outout the permhash value into extanalysis_report.json
+        core.report['permhash'] = permhash_ph
 
         #####################################################################
         ##### PERMISSION CHECKS AND OTHER STUFFS RELATED TO PERMISSIONS #####
@@ -347,7 +352,7 @@ def analyze(ext_name, ext_type='local'):
                 logging.error(traceback.format_exc())
         """
         if cid != False and cid != None:
-            return('Extension analyzed and report saved under ID: ' + cid)
+            return cid
         else:
             return('error:Something went wrong with the analysis!')
     except Exception as e:

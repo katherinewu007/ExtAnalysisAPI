@@ -32,7 +32,8 @@ var elements = $('.modal-overlay, .modal');
 $('.close-modal').click(function() {
     elements.removeClass('active');
 });
-var csrftoken = $('meta[name=csrf-token]').attr('content')
+// give it any random value to bypass the csrf validation, so that we can use it as an api, instead of just the UI
+// var csrftoken = "lol"
 
 document.getElementById('noscript').style.display = 'none';
 
@@ -111,7 +112,7 @@ function download_and_scan_firefox(){
             method: "POST",
             headers: {
             "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", // otherwise $_POST is empty
-            "X-CSRFToken": csrftoken
+            //"X-CSRFToken": csrftoken
             },
             body: "query=firefoxaddon"
         }).then(response => {
@@ -147,7 +148,7 @@ function handle_download(id){
             method: "POST",
             headers: {
             "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", // otherwise $_POST is empty
-            "X-CSRFToken": csrftoken
+            //"X-CSRFToken": csrftoken
             },
             body: "query=dlanalysis"
         });
@@ -199,7 +200,7 @@ function upload_extension(){
         url: '/upload/',
         type: 'POST',
         headers: {
-            "X-CSRFToken": csrftoken
+            //"X-CSRFToken": csrftoken
         },
         data: formdata,
         success:(response)=>{
@@ -219,7 +220,7 @@ function result() {
             method: "POST",
             headers: {
             "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", // otherwise $_POST is empty
-            "X-CSRFToken": csrftoken
+            //"X-CSRFToken": csrftoken
             },
             body: "query=results"
     }).then((resp) => {
@@ -238,7 +239,7 @@ function loadresult(result) {
             method: "POST",
             headers: {
             "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", // otherwise $_POST is empty
-            "X-CSRFToken": csrftoken
+            //"X-CSRFToken": csrftoken
             },
             body: "query=showresult"
     }).then((resp) => {
@@ -331,7 +332,7 @@ function getCookie(cname) {
                 method: "POST",
                 headers: {
                 "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", // otherwise $_POST is empty
-                "X-CSRFToken": csrftoken
+                //"X-CSRFToken": csrftoken
                 },
                 body: "query=permissionInfo"
       }).then((response) => {
@@ -362,7 +363,7 @@ function getCookie(cname) {
                 method: "POST",
                 headers: {
                 "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", // otherwise $_POST is empty
-                "X-CSRFToken": csrftoken
+                //"X-CSRFToken": csrftoken
                 },
                 body: "query=deleteResult"
             }).then(response => {
@@ -402,7 +403,7 @@ function getCookie(cname) {
                 method: "POST",
                 headers: {
                 "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", // otherwise $_POST is empty
-                "X-CSRFToken": csrftoken
+                //"X-CSRFToken": csrftoken
                 },
                 body: "query=getlocalextensions"
     }).then((response) => {
@@ -435,7 +436,7 @@ function getCookie(cname) {
                 method: "POST",
                 headers: {
                 "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", // otherwise $_POST is empty
-                "X-CSRFToken": csrftoken
+                //"X-CSRFToken": csrftoken
                 },
                 body: "query=analyzelocalextension"
         }).then((response) => {
@@ -465,7 +466,7 @@ function getCookie(cname) {
                     method: "POST",
                     headers: {
                     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", // otherwise $_POST is empty
-                    "X-CSRFToken": csrftoken
+                    //"X-CSRFToken": csrftoken
                     },
                     body: "query=deleteAll"
                 }).then(response => {
@@ -512,7 +513,7 @@ function getCookie(cname) {
                     method: "POST",
                     headers: {
                     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", // otherwise $_POST is empty
-                    "X-CSRFToken": csrftoken
+                    //"X-CSRFToken": csrftoken
                     },
                     body: "query=clearLab"
                 }).then(response => {
@@ -553,7 +554,7 @@ function getCookie(cname) {
                     method: "POST",
                     headers: {
                     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", // otherwise $_POST is empty
-                    "X-CSRFToken": csrftoken
+                    //"X-CSRFToken": csrftoken
                     },
                     body: "query=whois"
             }).then(response => {
@@ -580,7 +581,7 @@ function getCookie(cname) {
                     method: "POST",
                     headers: {
                     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", // otherwise $_POST is empty
-                    "X-CSRFToken": csrftoken
+                    //"X-CSRFToken": csrftoken
                     },
                     body: "query=vtDomainReport"
             }).then(response => {
@@ -628,7 +629,7 @@ function getCookie(cname) {
             method: "POST",
             headers: {
             "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", // otherwise $_POST is empty
-            "X-CSRFToken": csrftoken
+            //"X-CSRFToken": csrftoken
             },
             body: "query=" + encodeURIComponent(x)
         }).then(response => {
@@ -663,7 +664,7 @@ function getCookie(cname) {
                     method: "POST",
                     headers: {
                     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", // otherwise $_POST is empty
-                    "X-CSRFToken": csrftoken
+                    //"X-CSRFToken": csrftoken
                     },
                     body: "query=changeReportsDir"
             }).then(resp => {
@@ -697,7 +698,7 @@ function getCookie(cname) {
                     method: "POST",
                     headers: {
                     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", // otherwise $_POST is empty
-                    "X-CSRFToken": csrftoken
+                    //"X-CSRFToken": csrftoken
                     },
                     body: "query=changelabDir"
             }).then(resp => {
@@ -731,7 +732,7 @@ function getCookie(cname) {
                     method: "POST",
                     headers: {
                     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", // otherwise $_POST is empty
-                    "X-CSRFToken": csrftoken
+                    //"X-CSRFToken": csrftoken
                     },
                     body: "query=changeVTapi"
             }).then(resp => {
@@ -758,7 +759,7 @@ function getCookie(cname) {
                     method: "POST",
                     headers: {
                     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", // otherwise $_POST is empty
-                    "X-CSRFToken": csrftoken
+                    //"X-CSRFToken": csrftoken
                     },
                     body: "query=geoip"
             }).then(response => {
@@ -785,7 +786,7 @@ function getCookie(cname) {
                     method: "POST",
                     headers: {
                     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", // otherwise $_POST is empty
-                    "X-CSRFToken": csrftoken
+                    //"X-CSRFToken": csrftoken
                     },
                     body: "query=retirejsResult"
             }).then(response => {
@@ -838,7 +839,7 @@ function getCookie(cname) {
                     method: "POST",
                     headers: {
                     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", // otherwise $_POST is empty
-                    "X-CSRFToken": csrftoken
+                    //"X-CSRFToken": csrftoken
                     },
                     body: "query=HTTPHeaders"
             }).then(response => {
@@ -865,7 +866,7 @@ function getCookie(cname) {
                     method: "POST",
                     headers: {
                     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", // otherwise $_POST is empty
-                    "X-CSRFToken": csrftoken
+                    //"X-CSRFToken": csrftoken
                     },
                     body: "query=SourceCode"
             }).then(response => {
@@ -886,7 +887,7 @@ function getCookie(cname) {
     }
 
     function update(){
-        swal('Update Extanalysis', 'Use the command "python3 extanalysis.py --update" to check for updates!', 'info')
+        swal('Update Extanalysis', 'Use the command "python3 app.py --update" to check for updates!', 'info')
     }
 
     function updateIntelExtraction(){
@@ -905,7 +906,7 @@ function getCookie(cname) {
                     method: "POST",
                     headers: {
                     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", // otherwise $_POST is empty
-                    "X-CSRFToken": csrftoken
+                    //"X-CSRFToken": csrftoken
                     },
                     body: "query=updateIntelExtraction"
             }).then(response => {

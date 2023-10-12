@@ -1,24 +1,16 @@
-FROM alpine:3.9
-LABEL MAINTAINER furkan.sayim@yandex.com
-LABEL name ExtAnalysis
-LABEL src "https://github.com/Tuhinshubhra/ExtAnalysis"
-LABEL creator Tuhinshubhra
-LABEL desc "Browser Extension Analysis Framework"
+FROM python:3.11-bookworm
 
-RUN apk add --no-cache python3 && \
-    python3 -m ensurepip && \
-    rm -r /usr/lib/python*/ensurepip && \
-    pip3 install --upgrade pip setuptools && \
-    if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi && \
-    if [[ ! -e /usr/bin/python ]]; then ln -sf /usr/bin/python3 /usr/bin/python; fi && \
-    rm -r /root/.cache
+WORKDIR /app
+# In Azure, Azure app service with python is Linux host and libmagic-dev
+# is required on the linux host vm for permhash to work
+RUN apt update && apt install libmagic-dev
 
-RUN apk add git
-RUN git clone https://github.com/Tuhinshubhra/ExtAnalysis.git /tmp/extanalysis
+COPY requirements.txt .
 
-WORKDIR /tmp/extanalysis
-RUN pip3 install -r requirements.txt
+RUN pip install -r requirements.txt
+
+COPY . .
 
 EXPOSE 13337
 
-ENTRYPOINT ["python3", "extanalysis.py"]
+CMD ["python", "app.py"]
