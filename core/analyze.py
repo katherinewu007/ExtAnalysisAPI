@@ -165,6 +165,9 @@ def analyze(ext_name, ext_type='local'):
         manifest_file = helper.fixpath(extract_dir + '/manifest.json')
         # Added permhash calculation here:
         permhash_ph = permhash.permhash_crx_manifest(manifest_file)
+        if not permhash_ph:
+            permhash_ph = "There is no permissions in manifest.json for permhash to be calculated"
+            
         manifest_load = open(manifest_file, 'r')
         manifest_content = manifest_load.read()
         manifest_content = json.loads(manifest_content)
